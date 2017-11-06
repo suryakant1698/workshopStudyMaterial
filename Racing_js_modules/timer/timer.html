@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+</head>
+<body style="margin: 0;
+    padding: 0;
+    background-color: black;">
+<canvas id="gameCanvas" width="800" height="600" style="width: 63vw; display: block; margin: 0 auto;"></canvas>
+<script>
+   
+    var canvas, canvasContext;
+
+    const CANVAS_W = 800; // Setting the track width
+    const CANVAS_H = 600; // Setting the track height
+   
+
+    // After the window has loaded we will perform various operations
+    window.onload = function () {
+        // Getting the canvas element
+        canvas = document.getElementById('gameCanvas');
+        canvasContext = canvas.getContext('2d');
+        
+        
+    }
+
+    function colorText(showWords, textX, textY, fillColor, fontSize) {
+        canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+        canvasContext.fillStyle = fillColor;
+        canvasContext.font = fontSize+" Georgia";
+        canvasContext.fillText(showWords, textX, textY);
+       
+    }
+
+    // Set the date we're counting down to
+    //add 5 minutes to the current date
+
+    var minutes=0,seconds=0;
+    var totalSeconds = 0;
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+        ++totalSeconds;
+        var hour = Math.floor(totalSeconds /3600);
+         minutes = Math.floor((totalSeconds - hour*3600)/60);
+        seconds = totalSeconds - (hour*3600 + minutes*60);
+         colorText(minutes + "m " + seconds + "s ", CANVAS_W /2, CANVAS_H /2, 'red', "70px");
+
+    }, 1000);
+</script>
+</body>
+</html>

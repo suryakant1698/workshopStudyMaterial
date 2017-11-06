@@ -1,0 +1,42 @@
+    // After the window has loaded we will perform various operations
+    window.onload = function () {
+        // Getting the canvas element
+        canvas = document.getElementById('gameCanvas');
+        canvasContext = canvas.getContext('2d');
+        // Setting the number of frames per second to render.
+        var framesPerSecond = 30;
+        interval = setInterval(updateAll, 1000 / framesPerSecond);
+
+        // Adding keydown and keyup event listleners.
+        document.addEventListener('keydown', keyPressed);
+        document.addEventListener('keyup', keyReleased);
+
+        // After the picture has loaded update the carPicLoaded variable.
+
+        carPic.onload = function () {
+            carPicLoaded = true;
+        }
+        // Here we set the source path of the car image.
+        carPic.src = "assets/car.svg";
+
+        checkpointPic.onload = function () {
+            checkpointload = true;
+        }
+        checkpointPic.src = "assets/checkpoint.png";
+
+        checkeredPic.onload = function () {
+            checkeredPicLoaded = true;
+        }
+        checkeredPic.src = "assets/checkered.png";
+
+        asphaltPic.onload = function () {
+            asphaltPicLoaded = true;
+        }
+        asphaltPic.src = "assets/asphalt.png";
+
+        grassPic.onload = function () {
+            grassPicLoaded = true;
+        }
+        grassPic.src = "assets/grass.png";
+
+    }

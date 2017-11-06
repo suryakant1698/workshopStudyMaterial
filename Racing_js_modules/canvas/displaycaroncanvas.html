@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+</head>
+<body>
+<canvas id="gameCanvas" width="800" height="600" style="width: 63vw; display: block; margin: 0 auto;"></canvas>
+<script>
+    // carPic: Image object of the car
+    var carPic = document.createElement("img");
+    var carPicLoaded = false;
+    var canvas, canvasContext;
+    var carWidth = 40;
+    var carHeight = 40;
+    canvas = document.getElementById('gameCanvas');
+    canvasContext = canvas.getContext('2d');
+
+    // After the picture has loaded update the carPicLoaded variable.
+	carPic.onload = function () {
+            canvasContext.drawImage(carPic,50,50,carWidth,carHeight);	
+        }
+        // Here we set the source path of the car image.
+        carPic.src = "assets/car.svg";
+		
+</script>
+</body>
+</html>

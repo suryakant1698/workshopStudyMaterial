@@ -1,0 +1,15 @@
+
+    // Set the date we're counting down to
+    //add 5 minutes to the current date
+
+    var minutes = 0, seconds = 0;
+    var totalSeconds = 0;
+    // Update the count down every 1 second
+    var timer = setInterval(function () {
+
+        ++totalSeconds;
+        var hour = Math.floor(totalSeconds / 3600);
+        minutes = Math.floor((totalSeconds - hour * 3600) / 60);
+        seconds = totalSeconds - (hour * 3600 + minutes * 60);
+
+    }, 1000);

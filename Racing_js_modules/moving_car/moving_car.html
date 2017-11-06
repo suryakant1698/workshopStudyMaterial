@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+</head>
+
+<body >
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<script>
+    // carPic: Image object of the car
+    var carPic = document.createElement("img");
+    var carPicLoaded = false;
+    
+    var carX = 75;
+    var carY = 75;
+    var carAng = 0;
+    var carSpeed = 0;
+    var canvas, canvasContext;
+    var carWidth = 40;
+    var carHeight = 40;
+    const KEY_LEFT_ARROW = 37;
+    const KEY_UP_ARROW = 38;
+    const KEY_RIGHT_ARROW = 39;
+    const KEY_DOWN_ARROW = 40;
+
+    var keyHeld_Gas = false;
+    var keyHeld_Reverse = false;
+    var keyHeld_TurnLeft = false;
+    var keyHeld_TurnRight = false;
+   
+
+    const TRACK_W = 40; // Setting the track width
+    const TRACK_H = 40; // Setting the track height
+    const TRACK_COLS = 20;
+    const TRACK_ROWS = 15;
+    
+
+    //This function handles key press events.
+
+    function keyPressed(evt) {
+        if (evt.keyCode == KEY_LEFT_ARROW) {
+            keyHeld_TurnLeft = true;
+        }
+        if (evt.keyCode == KEY_RIGHT_ARROW) {
+            keyHeld_TurnRight = true;
+        }
+        if (evt.keyCode == KEY_UP_ARROW) {
+            keyHeld_Gas = true;
+        }
+        if (evt.keyCode == KEY_DOWN_ARROW) {
+            keyHeld_Reverse = true;
+        }
+    }
+
+    //This function handles key release events.
+    function keyReleased(evt) {
+        if (evt.keyCode == KEY_LEFT_ARROW) {
+            keyHeld_TurnLeft = false;
+        }
+        if (evt.keyCode == KEY_RIGHT_ARROW) {
+            keyHeld_TurnRight = false;
+        }
+        if (evt.keyCode == KEY_UP_ARROW) {
+            keyHeld_Gas = false;
+        }
+        if (evt.keyCode == KEY_DOWN_ARROW) {
+            keyHeld_Reverse = false;
+        }
+        evt.preventDefault();
+    }
+
+    // After the window has loaded we will perform various operations
+    window.onload = function () {
+
+
+        // Getting the canvas element
+        canvas = document.getElementById('gameCanvas');
+        canvasContext = canvas.getContext('2d');
+        // Setting the number of frames per second to render.
+        var framesPerSecond = 30;
+        interval = setInterval(updateAll, 1000 / framesPerSecond);
+
+        // Adding keydown and keyup event listleners.
+        document.addEventListener('keydown', keyPressed);
+        document.addEventListener('keyup', keyReleased);
+
+        // After the picture has loaded update the carPicLoaded variable.
+
+        carPic.onload = function () {
+            carPicLoaded = true;
+        }
+        // Here we set the source path of the car image.
+        carPic.src = "assets/car.svg";
+
+    }
+
+    // This is to update the canvas elements.
+    function updateAll() {
+        moveAll();
+        drawAll();
+    }
+
+    // This function will handle car movement based on key press events.
+    function carMove() {
+        carSpeed *= .97
+        if (keyHeld_Gas) {
+            carSpeed += .3;
+        }
+        if (keyHeld_Reverse) {
+            carSpeed -= .3;
+        }
+        if (keyHeld_TurnLeft) {
+            carAng -= .04;
+        }
+        if (keyHeld_TurnRight) {
+            carAng += .04;
+        }
+
+
+        carX += Math.cos(carAng) * carSpeed;
+        carY += Math.sin(carAng) * carSpeed;
+    }
+
+
+
+
+    function moveAll() {
+        carMove();
+        }
+
+  
+    function drawAll() {
+       
+
+                     
+             if (carPicLoaded) {
+            // Draw the car
+            canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+             canvasContext.fillRect(0,0,canvas.width, canvas.height,'black');
+            drawCar(carPic, carX, carY, carAng, carWidth, carHeight);
+
+        }
+    }
+       
+
+    function drawCar(useBitmap, atX, atY, withAng) {
+        canvasContext.save();
+        canvasContext.translate(atX, atY);
+        canvasContext.rotate(withAng);
+        canvasContext.drawImage(useBitmap, -carWidth / 2, -carHeight / 2,carWidth,carHeight);
+        canvasContext.restore();
+    }
+
+    function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
+        canvasContext.fillStyle = fillColor;
+        canvasContext.fillRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor);
+    }
+
+    
+</script>
+</body>
+</html>

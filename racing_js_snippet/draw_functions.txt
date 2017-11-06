@@ -1,0 +1,19 @@
+  function drawCar(useBitmap, atX, atY, withAng) {
+        canvasContext.save();
+        canvasContext.translate(atX, atY);
+        canvasContext.rotate(withAng);
+        canvasContext.drawImage(useBitmap, -carWidth / 2, -carHeight / 2, carWidth, carHeight);
+        canvasContext.restore();
+    }
+
+    function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
+        canvasContext.fillStyle = fillColor;
+        canvasContext.fillRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor);
+    }
+
+
+    function colorText(showWords, textX, textY, fillColor, fontSize) {
+        canvasContext.fillStyle = fillColor;
+        canvasContext.font = fontSize + " Georgia";
+        canvasContext.fillText(showWords, textX, textY);
+    }
